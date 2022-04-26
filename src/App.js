@@ -1,24 +1,46 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import axios from "axios";
+
+
+import Nav from "./Components/Nav/Nav";
+import Homepage from "./Components/HomePage/Homepage";
+import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
 
 function App() {
+  const [name, setName] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get("");
+      setName(data.Name)
+    }
+    fetchData();
+    return () => {
+      //
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <div className="App">
+          <Nav name={name} setName={setName}/>
+
+          <div>
+            <Routes>
+              <Route exact path="/" element={<Homepage/>} />
+              <Route path="/login" element={<Login/>} />
+              {/*<Route path="/login" element={() => <Login setName={setName}/>} />*/}
+              <Route path="/register" element={<Register/>} />
+              <Route path="/homepage" element={<Homepage/>} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+
   );
 }
 
