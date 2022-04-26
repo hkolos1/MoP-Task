@@ -1,0 +1,19 @@
+body {
+    font-family: 'Gilroy Light';
+}
+
+.parent {
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.list-group {
+    height: 65%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.loadMore {
+    margin-bottom: 1%;
+    width: 25%;
+}
