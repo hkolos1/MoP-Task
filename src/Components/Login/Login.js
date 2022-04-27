@@ -1,10 +1,27 @@
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
 import '../../App.css';
 import './login.css';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 
-const login = () => {
+const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin =  async () => {
+        try{
+            const {data} = await axios.post('http://localhost:5000/users/login', {
+                   email,
+                   password
+            });
+            alert('success');
+        } catch(e) {
+            alert('fail');
+        }
+    };
+
     return (
         <div className="outer">
             <div className="inner">
@@ -14,18 +31,17 @@ const login = () => {
                     <div className="form-group">
                         <label>Email address</label>
                         <input type="email" className="form-control"
-                               placeholder="Enter email" />
+                               placeholder="Enter email" onChange={(e) => setEmail(e.target.event)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Password</label>
                         <input type="password" className="form-control"
-                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                               placeholder="Enter password" />
+                               placeholder="Enter password" onChange={(e) => setPassword(e.target.event)}/>
                     </div>
 
                     <div><br></br></div>
-                    <button type="submit" className="btn btn-secondary btn-block">Submit</button>
+                    <button  onClick={handleLogin} className="btn btn-secondary btn-block">Submit</button>
                     <p className="forgot-password text-right">
                         Dont have an account? <Link to={'/register'}>Register</Link>
                     </p>
@@ -35,4 +51,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login;
