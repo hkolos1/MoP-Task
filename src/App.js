@@ -9,6 +9,7 @@ import Nav from "./Components/Nav/Nav";
 import Homepage from "./Components/HomePage/Homepage";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
+import MyProfile from "./Components/Profile/myProfile"
 
 function App() {
   const [name, setName] = useState('')
@@ -36,6 +37,7 @@ function App() {
               {/*<Route path="/login" element={() => <Login setName={setName}/>} />*/}
               <Route path="/register" element={<Register/>} />
               <Route path="/homepage" element={<Homepage/>} />
+              <Route path="/profile" element={<MyProfile/>} />
             </Routes>
           </div>
         </div>
