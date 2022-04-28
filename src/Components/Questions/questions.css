@@ -1,0 +1,21 @@
+.button{
+
+}
+.likeBtn {
+    border: none;
+    background-color: #167bff;
+}
+.likeBtn:hover {
+    border: none;
+    background-color: lightgreen;
+}
+
+.dislikeBtn {
+    border: none;
+    background-color: #EE2633;
+}
+.dislikeBtn:hover {
+    background-color: lightcoral;
+}
+
+

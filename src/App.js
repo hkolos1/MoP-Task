@@ -10,6 +10,9 @@ import Homepage from "./Components/HomePage/Homepage";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import MyProfile from "./Components/Profile/myProfile"
+import MyQuestions from "./Components/Questions/myQuestions"
+import AddQuestion from "./Components/Questions/addQuestion"
+import Questions from "./Components/Questions/Questions";
 
 function App() {
   const [name, setName] = useState('')
@@ -34,10 +37,12 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Homepage/>} />
               <Route path="/login" element={<Login/>} />
-              {/*<Route path="/login" element={() => <Login setName={setName}/>} />*/}
               <Route path="/register" element={<Register/>} />
               <Route path="/homepage" element={<Homepage/>} />
               <Route path="/profile" element={<MyProfile/>} />
+              <Route path="/myquestions" element={<MyQuestions/>} />
+              <Route path="/add-question" element={<AddQuestion/>} />
+              <Route path="/questions" element={<Questions/>} />
             </Routes>
           </div>
         </div>
