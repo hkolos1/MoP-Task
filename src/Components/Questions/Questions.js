@@ -1,27 +1,138 @@
-import React from 'react';
-import {Button} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Col, Container, Row} from "react-bootstrap";
 import "./questions.css"
+import Question from "./Question";
+import axios from "axios";
+import {getUser} from "../../utils/user";
 
 
 const Questions = () => {
+    const [allQuestions, setAllQuestions] = useState([]);
+    const [allLikes, setAllLikes] = useState([]);
+    const [allDislikes, setAllDislikes] = useState([]);
+
+    const handleLike = async (questionID) => {
+        try {
+            const user = getUser();
+            await axios.post('http://localhost:5000/likes/add', {
+                questionID,
+                userID: user._id
+            });
+            const {data: likesData} = await axios.get('http://localhost:5000/likes');
+            setAllLikes(likesData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleRemoveLike = async (questionID) => {
+        try {
+            const user = getUser();
+            const like = allLikes.find(like => like.questionID === questionID && user._id === like.userID);
+            if(!!like) {
+                await axios.delete('http://localhost:5000/likes/' + like._id);
+            }
+            const {data: likesData} = await axios.get('http://localhost:5000/likes');
+            setAllLikes(likesData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const isQuestionLiked = (questionID) => {
+        const user = getUser();
+        if(!user) return false;
+        return !!allLikes.find(like => like.questionID === questionID && like.userID === user._id);
+    }
+
+    const handleDislike = async (questionID) => {
+        try {
+            const user = getUser();
+            await axios.post('http://localhost:5000/dislikes/add', {
+                questionID,
+                userID: user._id
+            });
+            const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+            setAllDislikes(dislikesData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleRemoveDislike = async (questionID) => {
+        try {
+            const user = getUser();
+            const dislike = allDislikes.find(dislike => dislike.questionID === questionID && user._id === dislike.userID);
+            if(!!dislike) {
+                await axios.delete('http://localhost:5000/dislikes/' + dislike._id);
+            }
+            const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+            setAllDislikes(dislikesData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const isQuestionDisliked = (questionID) => {
+        const user = getUser();
+        if(!user) return false;
+        return !!allDislikes.find(dislike => dislike.questionID === questionID && dislike.userID === user._id);
+    }
+
+
+
+    const calculateLikes = (questionID) => {
+        return allLikes.filter(like => like.questionID === questionID)?.length;
+    }
+
+    const calculateDislikes = (questionID) => {
+        return allDislikes.filter(dislike => dislike.questionID === questionID)?.length;
+    }
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const user = getUser();
+                if(!user) return;
+                const {data} = await axios.get('http://localhost:5000/questions/not-my-questions/' + user._id);
+                setAllQuestions(data);
+                const {data: likesData} = await axios.get('http://localhost:5000/likes');
+                setAllLikes(likesData);
+                const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+                setAllDislikes(dislikesData);
+            } catch(e) {
+                console.log(e);
+            }
+        })();
+    }, []);
+
     return (
-        <div className="parent">
-            <div className="col-md">
-                <div className="inner">
-                    <h3 className="questions">All Questions</h3>
-                    <link rel="stylesheet"
-                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
-                    <p><b>Title: Postavljeno pitanje?</b></p>
-                    <small>Date: 2022-04-28</small>
-                    <p>Description: Blabla</p>
-                    <p>Posted by: Harun Kološ</p>
-                    &nbsp;
-                    <Button className="likeBtn"><i className="fa fa-thumbs-up fa-like"></i></Button>
-                    &nbsp;
-                    <Button className="dislikeBtn"><i className="fa fa-thumbs-down fa-dislike"></i></Button>
-                </div>
-            </div>
-        </div>
+        <Container>
+            <Row>
+                <Col style={{fontSize: 30}} className='fw-bold'>Latest Questions</Col>
+            </Row>
+            {allQuestions.map(question => <Row key={question._id}>
+                <Col>
+                    <Question
+                        id={question._id}
+                        title={question.title}
+                        text={question.text}
+                        date={question.date}
+                        isLiked={isQuestionLiked(question._id)}
+                        isDisliked={isQuestionDisliked(question._id)}
+                        showLikes={true}
+                        handleLike={() => handleLike(question._id)}
+                        handleRemoveLike={() => handleRemoveLike(question._id)}
+                        handleDislike={() => handleDislike(question._id)}
+                        handleRemoveDislike={() => handleRemoveDislike(question._id)}
+                        showReply={true}
+                        likes={calculateLikes(question._id)}
+                        dislikes={calculateDislikes(question._id)}
+                        nameSurname={question.nameSurname}
+                    />
+                </Col>
+            </Row>)}
+        </Container>
     )
 }
 

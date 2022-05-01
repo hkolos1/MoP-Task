@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import './homepage.css'
 import axios from "axios";
-import dateFormat from 'date-format';
-import {Button, Col, Modal, ModalBody, ModalHeader, Row} from "react-bootstrap";
-import {getUser} from "../../utils/user";
+import {Col, Container, Row} from "react-bootstrap";
+import Question from "../Questions/Question";
 
 const Homepage = () => {
 
     const [allQuestions, setAllQuestions] = useState([]);
     const [allLikes, setAllLikes] = useState([]);
-    const [replyModalOpen, setReplyModalOpen] = useState(false);
-    const [selectedQuestion, setSelectedQuestion] = useState({});
-    const [reply, setReply] = useState('');
+    const [allDislikes, setAllDislikes] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -20,67 +17,36 @@ const Homepage = () => {
                 setAllQuestions(data);
                 const {data: likesData} = await axios.get('http://localhost:5000/likes');
                 setAllLikes(likesData);
+                const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+                setAllDislikes(dislikesData);
             } catch(e) {
                 console.log(e);
             }
         })();
     }, []);
 
-    const handleSubmitReply = async () => {
-        try {
-            await axios.post('http://localhost:5000/questions/reply/' + selectedQuestion?._id, {reply});
-            const {data} = await axios.get('http://localhost:5000/questions');
-            setAllQuestions(data);
-            setReply('');
-            setSelectedQuestion({});
-            setReplyModalOpen(false);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleLike = async (questionID) => {
-        try {
-            const user = getUser();
-            await axios.post('http://localhost:5000/likes/add', {
-                questionID,
-                userID: user._id
-            });
-            const {data: likesData} = await axios.get('http://localhost:5000/likes');
-            setAllLikes(likesData);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const handleDislike = async (questionID) => {
-        try {
-            const user = getUser();
-            const like = allLikes.find(like => like.questionID === questionID && user._id === like.userID);
-            console.log({like});
-            if(!!like) {
-                await axios.delete('http://localhost:5000/likes/' + like._id);
-            }
-            const {data: likesData} = await axios.get('http://localhost:5000/likes');
-            setAllLikes(likesData);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const isQuestionLiked = (questionID) => {
-        const user = getUser();
-        return !!allLikes.find(like => like.questionID === questionID && like.userID === user._id);
-    }
-
     const calculateLikes = (questionID) => {
         return allLikes.filter(like => like.questionID === questionID)?.length;
     }
 
-    return (
-        <div className="parent">
-            <div className="row">
+    const calculateDislikes = (questionID) => {
+        return allDislikes.filter(dislike => dislike.questionID === questionID)?.length;
+    }
 
+    return (
+        <>
+            <Container>
+                <Row>
+                    <Col style={{fontSize: 30}} className='fw-bold'>Latest Questions</Col>
+                </Row>
+                {allQuestions.map(question => <Row key={question._id}>
+                    <Col>
+                        <Question nameSurname={question.nameSurname} likes={calculateLikes(question._id)} dislikes={calculateDislikes(question._id)} id={question._id} title={question.title} text={question.text} date={question.date}/>
+                    </Col>
+                </Row>)}
+            </Container>
+            {/*<div className="parent">
+            <div className="row">
                 <div className="col-md">
                     <h3>Latest Questions</h3>
                     <ul className="list-group">
@@ -105,7 +71,6 @@ const Homepage = () => {
                         </li> )}
                     </ul>
                     <br></br>
-                    {/*<button className="btn btn-success loadMore">Load More</button>*/}
                     <br></br>
                 </div>
 
@@ -168,7 +133,8 @@ const Homepage = () => {
                     </Row>
                 </ModalBody>
             </Modal>
-        </div>
+        </div>*/}
+        </>
     )
 }
 

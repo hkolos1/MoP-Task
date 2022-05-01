@@ -11,7 +11,6 @@ import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import MyProfile from "./Components/Profile/myProfile"
 import MyQuestions from "./Components/Questions/myQuestions"
-import AddQuestion from "./Components/Questions/addQuestion"
 import Questions from "./Components/Questions/Questions";
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
                         <Route exact path="/homepage" element={<Homepage/>} />
                         <Route exact path="/profile" element={<MyProfile/>} />
                         <Route exact path="/myquestions" element={<MyQuestions/>} />
-                        <Route exact path="/add-question" element={<AddQuestion/>} />
                         <Route exact path="/questions" element={<Questions/>} />
                     </Routes>
                 </div>

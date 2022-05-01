@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useLocation } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {getUser} from "../../utils/user";
 
 
@@ -18,13 +18,17 @@ const Nav = () => {
 
         if(getUser()) {
             tempItems.push({
+                header: 'Questions',
+                to: '/questions'
+            });
+            tempItems.push({
                 header: 'My Questions',
                 to: '/myquestions'
             });
             tempItems.push({
-                header: 'Add Question',
-                to: '/add-question'
-            })
+                header: 'Profile',
+                to: '/profile'
+            });
             tempItems.push({
                 header: 'Logout',
                 onClick: logout,
@@ -55,48 +59,6 @@ const Nav = () => {
     useEffect(() => {
         updateItems();
     }, [pathname]);
-
-
-    /* if (props.name === '') {
-         menu = (
-             <ul className="navbar-nav mr-auto">
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/homepage"}>Home</Link>
-                 </li>
-
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/register"}>Register</Link>
-                 </li>
-
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/login"}>Login</Link>
-                 </li>
-
-             </ul>
-         )
-     }
-
-     else {
-         menu = (
-             <ul className="navbar-nav mr-auto">
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/homepage"}>Home</Link>
-                 </li>
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/myquestions"}>My Questions</Link>
-                 </li>
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/questions"}>Questions</Link>
-                 </li>
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/profile"}>Profile</Link>
-                 </li>
-                 <li className="nav-item">
-                     <Link className="nav-link" to={"/login"} onClick={logout}>Logout</Link>
-                 </li>
-             </ul>
-         )
-     } */
 
     return (
         <nav className="navbar navbar-expand-md navbar-light">
