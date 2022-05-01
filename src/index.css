@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;400&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -6,7 +7,7 @@ body {
   min-height: 100vh;
   display: flex;
   font-weight: 400;
-  font-family: 'Gilroy Light';
+  font-family: 'Roboto Light', sans-serif;
   background: #ffffff;
 }
 
