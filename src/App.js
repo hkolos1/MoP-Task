@@ -15,40 +15,29 @@ import AddQuestion from "./Components/Questions/addQuestion"
 import Questions from "./Components/Questions/Questions";
 
 function App() {
-  const [name, setName] = useState('')
+    const [name, setName] = useState('')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("");
-      setName(data.Name)
-    }
-    fetchData();
-    return () => {
-      //
-    }
-  }, [])
+    return (
+        <Router>
+            <div className="App">
+                <Nav name={name} setName={setName}/>
 
-  return (
-      <Router>
-        <div className="App">
-          <Nav name={name} setName={setName}/>
+                <div>
+                    <Routes>
+                        <Route exact path="/" element={<Homepage/>} />
+                        <Route exact path="/login" element={<Login/>} />
+                        <Route exact path="/register" element={<Register/>} />
+                        <Route exact path="/homepage" element={<Homepage/>} />
+                        <Route exact path="/profile" element={<MyProfile/>} />
+                        <Route exact path="/myquestions" element={<MyQuestions/>} />
+                        <Route exact path="/add-question" element={<AddQuestion/>} />
+                        <Route exact path="/questions" element={<Questions/>} />
+                    </Routes>
+                </div>
+            </div>
+        </Router>
 
-          <div>
-            <Routes>
-              <Route exact path="/" element={<Homepage/>} />
-              <Route path="/login" element={<Login/>} />
-              <Route path="/register" element={<Register/>} />
-              <Route path="/homepage" element={<Homepage/>} />
-              <Route path="/profile" element={<MyProfile/>} />
-              <Route path="/myquestions" element={<MyQuestions/>} />
-              <Route path="/add-question" element={<AddQuestion/>} />
-              <Route path="/questions" element={<Questions/>} />
-            </Routes>
-          </div>
-        </div>
-      </Router>
-
-  );
+    );
 }
 
 export default App;
