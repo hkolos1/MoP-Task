@@ -94,11 +94,11 @@ const Questions = () => {
             try {
                 const user = getUser();
                 if(!user) return;
-                const {data} = await axios.get('http://localhost:5000/questions/not-my-questions/' + user._id);
+                const {data} = await axios.get('https://mop-backend-task.onrender.com/questions/not-my-questions/' + user._id);
                 setAllQuestions(data);
-                const {data: likesData} = await axios.get('http://localhost:5000/likes');
+                const {data: likesData} = await axios.get('https://mop-backend-task.onrender.com/likes');
                 setAllLikes(likesData);
-                const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+                const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
                 setAllDislikes(dislikesData);
             } catch(e) {
                 console.log(e);

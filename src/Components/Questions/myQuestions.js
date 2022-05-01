@@ -23,11 +23,11 @@ const MyQuestions = () => {
             const id = user._id;
             (async () => {
                 try {
-                    const {data} = await axios.get('http://localhost:5000/questions/my-questions/' + id);
+                    const {data} = await axios.get('https://mop-backend-task.onrender.com/questions/my-questions/' + id);
                     setQuestions(data);
-                    const {data: likesData} = await axios.get('http://localhost:5000/likes');
+                    const {data: likesData} = await axios.get('https://mop-backend-task.onrender.com/likes');
                     setAllLikes(likesData);
-                    const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+                    const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
                     setAllDislikes(dislikesData);
                 }catch(e) {
                     console.log(e?.response?.message);

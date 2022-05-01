@@ -35,7 +35,7 @@ const Question = (
         try {
             const user = getUser();
             if(!user) return;
-            await axios.post('http://localhost:5000/replies/add', {
+            await axios.post('https://mop-backend-task.onrender.com/replies/add', {
                 questionID: id,
                 userID: user._id,
                 text: reply
@@ -49,7 +49,7 @@ const Question = (
     useEffect(() => {
         (async () => {
             try {
-                const {data} = await axios.get('http://localhost:5000/replies/' + id);
+                const {data} = await axios.get('https://mop-backend-task.onrender.com/replies/' + id);
                 setReplies(data);
             }catch (e) {
                 console.log(e);

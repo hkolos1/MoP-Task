@@ -16,7 +16,7 @@ const Register = () => {
 
     const handleRegister =  async () => {
         try{
-            const {data} = await axios.post('http://localhost:5000/users/register', {
+            const {data} = await axios.post('https://mop-backend-task.onrender.com/users/register', {
                 name,
                 surname,
                 email,

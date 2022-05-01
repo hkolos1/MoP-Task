@@ -13,11 +13,11 @@ const Homepage = () => {
     useEffect(() => {
         (async () => {
             try {
-                const {data} = await axios.get('http://localhost:5000/questions');
+                const {data} = await axios.get('https://mop-backend-task.onrender.com/questions');
                 setAllQuestions(data);
-                const {data: likesData} = await axios.get('http://localhost:5000/likes');
+                const {data: likesData} = await axios.get('https://mop-backend-task.onrender.com/likes');
                 setAllLikes(likesData);
-                const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+                const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
                 setAllDislikes(dislikesData);
             } catch(e) {
                 console.log(e);
