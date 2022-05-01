@@ -1,11 +1,14 @@
 body {
     font-family: 'Gilroy Light';
 }
+.container{
+    width: 120%;
+}
 
 .parent {
     margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    /*margin-left: 5%;*/
+    /*margin-right: 5%;*/
 }
 
 .list-group {

@@ -73,7 +73,7 @@ const MyQuestions = () => {
             </Row>
             <Row>
                 <Col className="d-flex justify-content-center mb-3">
-                    <Button onClick={() => setAddModalOpen(true)}>Add question</Button>
+                    <Button onClick={() => setAddModalOpen(true)}>Add Question</Button>
                 </Col>
             </Row>
             {questions.map(question => <Row key={question._id}>
@@ -97,7 +97,7 @@ const MyQuestions = () => {
                                    placeholder="Enter text" onChange={(e) => setText(e.target.value)}/>
                         </div>
                         <Button onClick={handleAddQuestion} className="mt-2">
-                            Add question
+                            Add Question
                         </Button>
                     </Container>
                 </ModalBody>

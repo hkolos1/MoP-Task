@@ -109,7 +109,7 @@ const Questions = () => {
     return (
         <Container>
             <Row>
-                <Col style={{fontSize: 30}} className='fw-bold'>Latest Questions</Col>
+                <Col style={{fontSize: 30}} className='fw-bold'>All Questions</Col>
             </Row>
             {allQuestions.map(question => <Row key={question._id}>
                 <Col>
