@@ -14,11 +14,11 @@ const Questions = () => {
     const handleLike = async (questionID) => {
         try {
             const user = getUser();
-            await axios.post('http://localhost:5000/likes/add', {
+            await axios.post('https://mop-backend-task.onrender.com/likes/add', {
                 questionID,
                 userID: user._id
             });
-            const {data: likesData} = await axios.get('http://localhost:5000/likes');
+            const {data: likesData} = await axios.get('https://mop-backend-task.onrender.com/likes');
             setAllLikes(likesData);
         } catch (e) {
             console.log(e);
@@ -30,9 +30,9 @@ const Questions = () => {
             const user = getUser();
             const like = allLikes.find(like => like.questionID === questionID && user._id === like.userID);
             if(!!like) {
-                await axios.delete('http://localhost:5000/likes/' + like._id);
+                await axios.delete('https://mop-backend-task.onrender.com/likes/' + like._id);
             }
-            const {data: likesData} = await axios.get('http://localhost:5000/likes');
+            const {data: likesData} = await axios.get('https://mop-backend-task.onrender.com/likes');
             setAllLikes(likesData);
         } catch (e) {
             console.log(e);
@@ -48,11 +48,11 @@ const Questions = () => {
     const handleDislike = async (questionID) => {
         try {
             const user = getUser();
-            await axios.post('http://localhost:5000/dislikes/add', {
+            await axios.post('https://mop-backend-task.onrender.com/dislikes/add', {
                 questionID,
                 userID: user._id
             });
-            const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+            const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
             setAllDislikes(dislikesData);
         } catch (e) {
             console.log(e);
@@ -64,9 +64,9 @@ const Questions = () => {
             const user = getUser();
             const dislike = allDislikes.find(dislike => dislike.questionID === questionID && user._id === dislike.userID);
             if(!!dislike) {
-                await axios.delete('http://localhost:5000/dislikes/' + dislike._id);
+                await axios.delete('https://mop-backend-task.onrender.com/dislikes/' + dislike._id);
             }
-            const {data: dislikesData} = await axios.get('http://localhost:5000/dislikes');
+            const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
             setAllDislikes(dislikesData);
         } catch (e) {
             console.log(e);
@@ -109,7 +109,7 @@ const Questions = () => {
     return (
         <Container>
             <Row>
-                <Col style={{fontSize: 30}} className='fw-bold'>All Questions</Col>
+                <Col style={{fontSize: 30}} className='fw-normal'>All Questions</Col>
             </Row>
             {allQuestions.map(question => <Row key={question._id}>
                 <Col>

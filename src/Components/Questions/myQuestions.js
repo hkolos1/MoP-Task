@@ -69,7 +69,7 @@ const MyQuestions = () => {
     return (
         <Container>
             <Row>
-                <Col style={{fontSize: 30}} className='fw-bold'>My Questions</Col>
+                <Col style={{fontSize: 30}} className='fw-normal'>My Questions</Col>
             </Row>
             <Row>
                 <Col className="d-flex justify-content-center mb-3">

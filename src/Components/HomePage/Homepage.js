@@ -40,7 +40,7 @@ const Homepage = () => {
                     <div className="col-md-6">
             <Container className="container">
                 <Row>
-                    <Col style={{fontSize: 25}} className='fw-bold'>Latest Questions</Col>
+                    <Col style={{fontSize: 25}} className='fw-normal'>Latest Questions</Col>
                 </Row>
                 {allQuestions.map(question => <Row key={question._id}>
                     <Col>
@@ -54,7 +54,7 @@ const Homepage = () => {
                     <div className="row">
                         <Container className="container">
                             <Row>
-                                <Col style={{fontSize: 25}} className='fw-bold'>People with most answers</Col>
+                                <Col style={{fontSize: 25}} className='fw-normal'>People with most answers</Col>
                             </Row>
                             {/*{allQuestions.map(question => <Row key={question._id}>*/}
                             {/*    <Col>*/}
@@ -68,7 +68,7 @@ const Homepage = () => {
                         <div className="row">
                             <Container className="container">
                                 <Row>
-                                    <Col style={{fontSize: 25}} className='fw-bold'>Hot Questions</Col>
+                                    <Col style={{fontSize: 25}} className='fw-normal'>Hot Questions</Col>
                                 </Row>
                                 {/*{allLikes.map(question => <Row key={question._id}>*/}
                                 {/*    <Col>*/}
