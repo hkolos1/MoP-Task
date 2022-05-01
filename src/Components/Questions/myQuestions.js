@@ -46,7 +46,7 @@ const MyQuestions = () => {
     const handleAddQuestion = async () => {
         try {
             const user = getUser();
-            const {data} = await axios.post('http://localhost:5000/questions/add', {title, text, userID: user._id});
+            const {data} = await axios.post('https://mop-backend-task.onrender.com/questions/add', {title, text, userID: user._id});
             setQuestions([data, {...questions}]);
             setText('');
             setTitle('');
