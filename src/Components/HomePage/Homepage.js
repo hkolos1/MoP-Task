@@ -9,6 +9,8 @@ const Homepage = () => {
     const [allQuestions, setAllQuestions] = useState([]);
     const [allLikes, setAllLikes] = useState([]);
     const [allDislikes, setAllDislikes] = useState([]);
+    const [peopleWithMostAnswers, setPeopleWithMostAnswers] = useState([]);
+    const [hotQuestions, setHotQuestions] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -19,6 +21,10 @@ const Homepage = () => {
                 setAllLikes(likesData);
                 const {data: dislikesData} = await axios.get('https://mop-backend-task.onrender.com/dislikes');
                 setAllDislikes(dislikesData);
+                const {data: peopleData} = await axios.get('https://mop-backend-task.onrender.com/users/most-answers');
+                setPeopleWithMostAnswers(peopleData);
+                const {data: hotQuestionsData} = await axios.get('https://mop-backend-task.onrender.com/questions/most-replies');
+                setHotQuestions(hotQuestionsData);
             } catch(e) {
                 console.log(e);
             }
@@ -34,13 +40,10 @@ const Homepage = () => {
     }
 
     return (
-        <>
-            <div className="parent">
-                <div className="row">
-                    <div className="col-md-6">
+        <div className="d-flex justify-content-between">
             <Container className="container">
                 <Row>
-                    <Col style={{fontSize: 25}} className='fw-normal'>Latest Questions</Col>
+                    <Col style={{fontSize: 25}} className='fw-bold'>Latest Questions</Col>
                 </Row>
                 {allQuestions.map(question => <Row key={question._id}>
                     <Col>
@@ -48,39 +51,44 @@ const Homepage = () => {
                     </Col>
                 </Row>)}
             </Container>
-                    </div>
-
-                    <div className="col-md">
-                    <div className="row">
-                        <Container className="container">
-                            <Row>
-                                <Col style={{fontSize: 25}} className='fw-normal'>People with most answers</Col>
-                            </Row>
-                            {/*{allQuestions.map(question => <Row key={question._id}>*/}
-                            {/*    <Col>*/}
-                            {/*    </Col>*/}
-                            {/*</Row>)}*/}
-                        </Container>
-                    </div>
-                </div>
-
-                    <div className="col-md">
-                        <div className="row">
-                            <Container className="container">
-                                <Row>
-                                    <Col style={{fontSize: 25}} className='fw-normal'>Hot Questions</Col>
-                                </Row>
-                                {/*{allLikes.map(question => <Row key={question._id}>*/}
-                                {/*    <Col>*/}
-                                {/*    </Col>*/}
-                                {/*</Row>)}*/}
-                            </Container>
+            <Container className="container text-center">
+                <Row>
+                    <Col style={{fontSize: 25}} className='fw-bold'>People with most answers</Col>
+                </Row>
+                {peopleWithMostAnswers.map(p => <Row key={p._id}>
+                    <Col className='d-flex justify-content-center'>
+                        <div className='w-50 d-flex justify-content-between p-3 mb-3'  style={{border: '1px solid black', borderRadius: 5}}>
+                            <div>{`${p.name} ${p.surname}`}</div>
+                            <div>{p.numberOfAnswers}</div>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-        </>
+                    </Col>
+                </Row>)}
+            </Container>
+            <Container className="container">
+                <Row>
+                    <Col style={{fontSize: 25}} className='fw-bold'>Hot Questions (Most Likes)</Col>
+                    {hotQuestions.map(q => <Row key={q._id}>
+                        <Col className='d-flex justify-content-center'>
+                            <div className='w-50 p-3 mb-3' style={{border: '1px solid black', borderRadius: 5}}>
+                                <Row>
+                                    <Col className='text-start fw-bold'>
+                                        {q.title}
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <div  className='d-flex justify-content-between'>
+                                            <div className='text-start'>{q.text}</div>
+                                            <div className='d-flex align-items-center justify-content-end mx-2'>{q.numberOfLikes}</div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                    </Row>)}
+                </Row>
+            </Container>
+        </div>
     )
 }
 
