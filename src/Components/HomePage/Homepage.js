@@ -79,7 +79,9 @@ const Homepage = () => {
                                     <Col>
                                         <div  className='d-flex justify-content-between'>
                                             <div className='text-start'>{q.text}</div>
-                                            <div className='d-flex align-items-center justify-content-end mx-2'>{q.numberOfLikes}</div>
+                                            <div className='d-flex align-items-center justify-content-end mx-2'>
+                                               <h5>👍 </h5> {q.numberOfLikes}
+                                            </div>
                                         </div>
                                     </Col>
                                 </Row>
