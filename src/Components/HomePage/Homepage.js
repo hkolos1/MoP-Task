@@ -11,6 +11,8 @@ const Homepage = () => {
     const [allDislikes, setAllDislikes] = useState([]);
     const [peopleWithMostAnswers, setPeopleWithMostAnswers] = useState([]);
     const [hotQuestions, setHotQuestions] = useState([]);
+    const [index, setIndex] = useState(2)
+    const [hot, setHot] = useState(2)
 
     useEffect(() => {
         (async () => {
@@ -39,17 +41,27 @@ const Homepage = () => {
         return allDislikes.filter(dislike => dislike.questionID === questionID)?.length;
     }
 
+    const loadMore = (e) => {
+        e.preventDefault()
+        setIndex(index + 2)
+    }
+
+    const loadMoreHot = (e) => {
+        e.preventDefault()
+        setHot(hot + 2)
+    }
     return (
         <div className="d-flex justify-content-between">
             <Container className="container">
                 <Row>
                     <Col style={{fontSize: 25}} className='fw-bold'>Latest Questions</Col>
                 </Row>
-                {allQuestions.map(question => <Row key={question._id}>
+                {allQuestions.slice(0, index).map(question => <Row key={question._id}>
                     <Col>
                         <Question nameSurname={question.nameSurname} likes={calculateLikes(question._id)} dislikes={calculateDislikes(question._id)} id={question._id} title={question.title} text={question.text} date={question.date}/>
                     </Col>
                 </Row>)}
+                <button className="btn btn-primary loadMore" onClick={loadMore}>Load More</button>
             </Container>
             <Container className="container text-center">
                 <Row>
@@ -67,7 +79,7 @@ const Homepage = () => {
             <Container className="container">
                 <Row>
                     <Col style={{fontSize: 25}} className='fw-bold'>Hot Questions (Most Likes)</Col>
-                    {hotQuestions.map(q => <Row key={q._id}>
+                    {hotQuestions.slice(0, hot).map(q => <Row key={q._id}>
                         <Col className='d-flex justify-content-center'>
                             <div className='w-50 p-3 mb-3' style={{border: '1px solid black', borderRadius: 5}}>
                                 <Row>
@@ -89,6 +101,7 @@ const Homepage = () => {
                         </Col>
                     </Row>)}
                 </Row>
+                <button className="btn btn-primary loadMore" onClick={loadMoreHot}>Load More</button>
             </Container>
         </div>
     )
