@@ -5,7 +5,6 @@ import ChangePassword from "./changePassword";
 
 const MyProfile = () => {
     return (
-        <form>
         <div className="parent">
             <div class="row">
 
@@ -27,7 +26,6 @@ const MyProfile = () => {
 
             </div>
         </div>
-        </form>
     )
 }
 
