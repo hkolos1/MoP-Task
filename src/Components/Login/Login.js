@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../../App.css';
 import './login.css';
 import {Link, useNavigate} from "react-router-dom";

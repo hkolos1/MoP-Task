@@ -58,7 +58,12 @@ const Homepage = () => {
                 </Row>
                 {allQuestions.slice(0, index).map(question => <Row key={question._id}>
                     <Col>
-                        <Question nameSurname={question.nameSurname} likes={calculateLikes(question._id)} dislikes={calculateDislikes(question._id)} id={question._id} title={question.title} text={question.text} date={question.date}/>
+                        <Question nameSurname={question.nameSurname}
+                                  likes={calculateLikes(question._id)}
+                                  dislikes={calculateDislikes(question._id)}
+                                  id={question._id}
+                                  title={question.title} text={question.text}
+                                  date={question.date}/>
                     </Col>
                 </Row>)}
                 <button className="btn btn-primary loadMore" onClick={loadMore}>Load More</button>
@@ -69,7 +74,8 @@ const Homepage = () => {
                 </Row>
                 {peopleWithMostAnswers.map(p => <Row key={p._id}>
                     <Col className='d-flex justify-content-center'>
-                        <div className='w-50 d-flex justify-content-between p-3 mb-3'  style={{border: '1px solid black', borderRadius: 5}}>
+                        <div className='w-50 d-flex justify-content-between p-3 mb-3'
+                             style={{border: '1px solid black', borderRadius: 5}}>
                             <div>{`${p.name} ${p.surname}`}</div>
                             <div>{p.numberOfAnswers}</div>
                         </div>
@@ -81,7 +87,8 @@ const Homepage = () => {
                     <Col style={{fontSize: 25}} className='fw-bold'>Hot Questions (Most Likes)</Col>
                     {hotQuestions.slice(0, hot).map(q => <Row key={q._id}>
                         <Col className='d-flex justify-content-center'>
-                            <div className='w-50 p-3 mb-3' style={{border: '1px solid black', borderRadius: 5}}>
+                            <div className='w-50 p-3 mb-3'
+                                 style={{border: '1px solid black', borderRadius: 5}}>
                                 <Row>
                                     <Col className='text-start fw-bold'>
                                         {q.title}

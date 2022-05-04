@@ -68,7 +68,8 @@ const Question = (
         </Row>
         <Row>
             <Col className='d-flex justify-content-start align-items-center mt-3' style={{fontSize:14}}>
-                Show Replies <img src={showReplies ? chevronUp : chevronDown} className='icons mx-2' onClick={() => setShowReplies(!showReplies)}/>
+                Show Replies <img src={showReplies ? chevronUp : chevronDown} className='icons mx-2'
+                                  onClick={() => setShowReplies(!showReplies)}/>
             </Col>
         </Row>
         <Row>
@@ -78,7 +79,9 @@ const Question = (
                         <Col className='w-100 mt-2 text-start'>
                             {replies.map(reply => <Row className='w-100' key={reply._id}>
                                 <Col>
-                                    <Reply text={reply.text} nameSurname={reply.nameSurname} date={reply.date}/>
+                                    <Reply text={reply.text}
+                                           nameSurname={reply.nameSurname}
+                                           date={reply.date}/>
                                 </Col>
                             </Row>)}
                             {!replies.length && <i>No replies</i>}

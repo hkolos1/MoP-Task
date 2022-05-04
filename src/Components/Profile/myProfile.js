@@ -4,6 +4,7 @@ import ChangePassword from "./changePassword";
 
 
 const MyProfile = () => {
+
     return (
         <div className="parent">
             <div class="row">

@@ -78,23 +78,29 @@ const MyQuestions = () => {
             </Row>
             {questions.map(question => <Row key={question._id}>
                 <Col>
-                    <Question likes={calculateLikes(question._id)} dislikes={calculateDislikes(question._id)} id={question._id} title={question.title} text={question.text} date={question.date}/>
+                    <Question likes={calculateLikes(question._id)}
+                              dislikes={calculateDislikes(question._id)}
+                              id={question._id}
+                              title={question.title}
+                              text={question.text}
+                              date={question.date}/>
                 </Col>
             </Row>)}
             <Modal show={addModalOpen} className='pt-3'>
                 <ModalBody>
                     <Container fluid="sm" className="mt-4">
                         <h3>Add a question</h3>
+
                         <div className="form-group">
                             <label>Title</label>
-                            <input type="text" className="form-control"
-                                   placeholder="Enter title" onChange={(e) => setTitle(e.target.value)}/>
+                            <input type="text" className="form-control" placeholder="Enter title"
+                                   onChange={(e) => setTitle(e.target.value)}/>
                         </div>
 
                         <div className="form-group">
                             <label>Text</label>
-                            <input type="text" className="form-control"
-                                   placeholder="Enter text" onChange={(e) => setText(e.target.value)}/>
+                            <input type="text" className="form-control" placeholder="Enter text"
+                                   onChange={(e) => setText(e.target.value)}/>
                         </div>
                         <Button onClick={handleAddQuestion} className="mt-2">
                             Add Question
