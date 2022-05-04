@@ -14,6 +14,7 @@ const MyQuestions = () => {
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [allLikes, setAllLikes] = useState([]);
     const [allDislikes, setAllDislikes] = useState([]);
+    const [index, setIndex] = useState(2)
 
     const getQuestions = () => {
         const user = getUser();
@@ -65,6 +66,11 @@ const MyQuestions = () => {
         return allDislikes.filter(dislike => dislike.questionID === questionID)?.length;
     }
 
+    const loadMore = (e) => {
+        e.preventDefault()
+        setIndex(index + 2)
+    }
+
 
     return (
         <Container>
@@ -76,7 +82,7 @@ const MyQuestions = () => {
                     <Button onClick={() => setAddModalOpen(true)}>Add Question</Button>
                 </Col>
             </Row>
-            {questions.map(question => <Row key={question._id}>
+            {questions.slice(0, index).map(question => <Row key={question._id}>
                 <Col>
                     <Question likes={calculateLikes(question._id)}
                               dislikes={calculateDislikes(question._id)}
@@ -86,6 +92,7 @@ const MyQuestions = () => {
                               date={question.date}/>
                 </Col>
             </Row>)}
+            <button className="btn btn-primary loadMore" onClick={loadMore}>Load More</button>
             <Modal show={addModalOpen} className='pt-3'>
                 <ModalBody>
                     <Container fluid="sm" className="mt-4">
