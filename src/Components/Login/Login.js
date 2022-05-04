@@ -50,6 +50,7 @@ const Login = () => {
 
                 <div><br></br></div>
                 {!!error && <div style={{color: 'red'}}>{error}</div>}
+                <div><br></br></div>
                 <button  onClick={handleLogin} className="btn btn-secondary btn-block">Submit</button>
                 <p className="forgot-password text-right">
                     Dont have an account? <Link to={'/register'}>Register</Link>

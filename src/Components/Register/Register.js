@@ -11,6 +11,7 @@ const Register = () => {
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const Register = () => {
             localStorage.setItem('user', JSON.stringify(data.user));
             navigate('/homepage');
         } catch(e) {
-            console.log(e.response.message);
+            setError(e?.response?.data?.message || 'Something went wrong');
         }
     };
     return (
@@ -57,6 +58,8 @@ const Register = () => {
                            placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
+                <div><br></br></div>
+                {!!error && <div style={{color: 'red'}}>{error}</div>}
                 <div><br></br></div>
                 <button onClick={handleRegister} className="btn btn-secondary btn-block">Register</button>
 
